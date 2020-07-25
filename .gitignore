@@ -1,0 +1,7 @@
+# Ignore idea config
+.idea
+
+# Ignore target
+target
+
+*.iml
