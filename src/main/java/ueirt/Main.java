@@ -1,31 +1,28 @@
 package ueirt;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
-import ueirt.logic.IMyJob;
-import ueirt.logic.MyCallback;
-import ueirt.logic.MyJob;
-import ueirt.logic.model.MyData;
-import ueirt.logic.model.SettingJob;
+import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.Arrays;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
         System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, "src/main/resources/driver/chromedriver");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        WebDriver webDriver = new ChromeDriver(chromeOptions);
 
-        IMyJob myJob = new MyJob(
-                new SettingJob(Arrays.asList(
-                        new MyData("1", new Point(0, 0), new Dimension(500, 500)),
-                        new MyData("2", new Point(300, 0), new Dimension(500, 500)),
-                        new MyData("3", new Point(600, 0), new Dimension(500, 500)),
-                        new MyData("4", new Point(900, 0), new Dimension(500, 500)),
-                        new MyData("5", new Point(1200, 0), new Dimension(500, 500))
-                ), 3),
-                new MyCallback()
-        );
+        webDriver.get("https://google.com/");
 
-        myJob.start();
+        try {
+            Thread.sleep(1000 * (new Random().nextInt(5) + 3));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        webDriver.close();
+        webDriver.quit();
     }
 }
